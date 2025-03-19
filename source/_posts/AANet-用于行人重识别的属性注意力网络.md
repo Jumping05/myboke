@@ -17,19 +17,19 @@ urlname: AANet_Attribute Attention Network for Person Re-Identifications
 
 1. **全局特征网络 `（GFN）`**：该网络基于输入的查询图像进行全局身份（ID）分类。卷积特征图经过全局平均池化层后，通过 `1x1`卷积层降维，再应用 `BatchNorm`和 `ReLU`激活函数，最后通过线性变换和 `Softmax`函数进行分类。
 
-   ![e41e4167bfa0520ba66698da7fafcf4b-image](/images/e41e4167bfa0520ba66698da7fafcf4b-image.png)
+   ![e41e4167bfa0520ba66698da7fafcf4b-image](/images/AANet-行人重识别/e41e4167bfa0520ba66698da7fafcf4b-image.png)
 
 2. **部分特征网络 `（PFN）`**：该网络专注于检测并提取局部化的身体部位。卷积特征图被分割成六个水平部分，通过识别每个特征图中的峰值激活区域来确定感兴趣区域 `（ROIs）`，并将这些区域聚类成六个bins，形成六个部分。然后对这些部分进行类似 `GFN`的处理。
 
-   ![135201f5e15e2c6b7c15c87c80e0cb98-image](images/135201f5e15e2c6b7c15c87c80e0cb98-image.png)
+   ![135201f5e15e2c6b7c15c87c80e0cb98-image](images/AANet-行人重识别/135201f5e15e2c6b7c15c87c80e0cb98-image.png)
    
 3. **属性特征网络 `（AFN）`**：该网络利用人员属性进行特征提取和分类任务。`AFN`包含两个子任务：（i）属性分类；（ii）生成属性注意力图 `（AAM）`。属性分类通过 `1x1`卷积层将特征图的通道深度从Z降到V，然后将特征图分成三个不同的部分，分别提取不同属性的特征。`AAM`生成利用类敏感激活区域，通过最大操作合并各个属性的类敏感激活区域，并进行自适应阈值处理，以去除背景区域。
 
-   ![118a394a27ab8f9702a090c58e80abef-image](images/118a394a27ab8f9702a090c58e80abef-image.png)
+   ![118a394a27ab8f9702a090c58e80abef-image](images/AANet-行人重识别/118a394a27ab8f9702a090c58e80abef-image.png)
    
 4. **多任务损失计算**：`AANet`被构建为一个多任务网络，其多任务损失函数定义为：
 
-   ![image-20250315164050572](/images/image-20250315164050572.png)
+   ![image-20250315164050572](/images/AANet-行人重识别/image-20250315164050572.png)
 
    其中，*x*是训练图像集合，*W*是输入*x*的权重，*T*是任务损失总数，*λ**i*是任务损失加权因子。使用同质不确定性学习来优化任务损失的权重。
 
@@ -43,10 +43,10 @@ urlname: AANet_Attribute Attention Network for Person Re-Identifications
 
 1. **`DukeMTMC-reID`数据集**：`AANet`在 `ResNet-50`上的 `mAP`为72.56%，Rank-1准确率为86.42%；在 `ResNet-152上`的 `mAP`为74.29%，Rank-1准确率为87.65%。与现有的最先进方法相比，`AANet`在多个方面均表现出色。
 
-   ![2cc95720270d7cfa0fb93fa329ba184c-image](images/2cc95720270d7cfa0fb93fa329ba184c-image.png)
+   ![2cc95720270d7cfa0fb93fa329ba184c-image](images/AANet-行人重识别/2cc95720270d7cfa0fb93fa329ba184c-image.png)
 2. **`Market1501`数据集**：`AANet`在 `ResNet-50`上的 `mAP`为82.45%，Rank-1准确率为93.89%；在 `ResNet-152`上的 `mAP`为83.41%，Rank-1准确率为93.93%。与现有的最先进方法相比，`AANet`同样表现出色。
 
-   ![75afe4a62cb3e28c05533ba88d8b3320-image](images/75afe4a62cb3e28c05533ba88d8b3320-image.png)
+   ![75afe4a62cb3e28c05533ba88d8b3320-image](images/AANet-行人重识别/75afe4a62cb3e28c05533ba88d8b3320-image.png)
 3. **属性分类性能**：`AANet`在每个属性预测上的准确率均优于APR方法。
 
 ## （五）总体结论
